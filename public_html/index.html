@@ -1,0 +1,266 @@
+<html>
+    <head>     <!-- script type는 자바스크립트, src를 넣어 소스는 다른 곳에 있다고 지정 ex) 네이버 open api에 있는 정보-->
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xeulgqnc95&amp;submodules=geocoder"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>    
+        <body>
+            <div style="margin-top: 20px; margin-bottom: 10px; font-weight: bold;">
+                약국 지도💊
+            </div>
+            <div id="map" style="width:100%; height:80%">
+
+            </div>
+        </body>
+        <script>
+            $(document).ready(async function(){
+                let XY = await getLocation();
+                //alert("위도" + XY.lat);
+                //alert("경도" + XY.lng);
+
+                // reverseGeocode는 비동기형이라 await 추가
+                await naver.maps.Service.reverseGeocode({
+                    location: new naver.maps.LatLng(XY.lat, XY.lng)
+                },function(status, response){
+                    let result = response.result;
+                    let items = result.items;
+                    //console.log(items[0].addrdetail.sido);
+                    //console.log(items[0].addrdetail.sigugun);
+                    let sido_arr = items[0].addrdetail.sido.split(" ");
+                    let gubun_arr = items[0].addrdetail.sigugun.split(" ");
+
+                    let sido = "";
+                    let gubun = "";
+                    if(sido_arr.length ==1) {
+                        sido = sido_arr[0];
+                        gugun = gubun_arr[0]
+                    }
+
+
+                    else if(sido_arr.length > 1) {
+                        sido = sido_arr[0];
+                        gugun = sido_arr[1]
+                    }
+                    console.log(sido);
+                    console.log(gugun);
+
+
+                    $.ajax({
+                        url: "/pharmach_list",
+                        type: "GET",   // GET을 통해 밑에 주석처리한 api url 부분 ?뒤부터 눈에 보이게끔 값들을 하나하나 입력해줌
+                        cache: false,  //cache는 쓰지 않을거라 false
+                        dataType: "json",    //dataType은 json으로 받겠다
+                        data: {"Q0": sido, "Q1": gugun, "QT": "", "QN": "", "ORD": "", "pageNo": "1", "numOfRows": "1000"},   
+                        success: function(data) {
+                            console.log(data);
+    
+    
+                            //지도를 삽입할 HTML 요소 또는 HTML 요소의 id를 지정합니다.
+                            var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
+    
+                            //옵션 없이 지도 객체를 생성하면 서울 시청을 중심으로 하는 16 레벨의 지도가 생성됩니다.
+                            var mapOptions = {
+                                center: new naver.maps.LatLng(XY.lat, XY.lng),
+                                zoom: 14
+                            }
+                            var map = new naver.maps.Map(mapDiv, mapOptions);
+
+///////////////////////////////   수정 1         ////////////////////////////////////////
+                                var position = new naver.maps.LatLng(XY.lat, XY.lng);
+
+                                var map = new naver.maps.Map('map', {
+                                    center: position,
+                                    zoom: 14,
+                                    icon: {
+                
+                                        content: [
+                                        '<img src="/img/sugar.jpg" style="position:absolute; top:2px; left:2px; width:32px; height:32px; object-fit:cover; object-position:center center; border-radius:50%; z-index:6">',
+                                        //'<img src="/map-pin-afterUser.svg" style="position;absolute; top:0; left:0; z-index:5">',
+                                        ].join(''),
+                                        
+                        
+                                        anchor: new naver.maps.Point(25, 26),
+                                    }
+                                });
+
+                 
+//////////////////////////////////////    수정 2 ///////////////////////
+
+
+
+playAlert = setInterval(function() {
+    navigator.geolocation.watchPosition(onSuccessGeolocation);
+    
+}, 1500);
+
+
+
+
+
+function onSuccessGeolocation(position) {
+        var markerOptions = {
+            position: new naver.maps.LatLng(XY.lat, XY.lng),
+            map: map,
+            icon: {
+                
+                content: [
+                '<img src="/img/sugar.jpg" style="position:absolute; top:2px; left:2px; width:32px; height:32px; object-fit:cover; object-position:center center; border-radius:50%; z-index:6">',
+                ].join(''),
+                
+
+                anchor: new naver.maps.Point(25, 26)
+            }
+        };
+        var marker = new naver.maps.Marker(markerOptions); 
+        
+        
+        console.log('Coordinates: ' + location.toString());
+    }
+    
+    
+     
+//////////////////////////////////////    수정2 ///////////////////////
+
+
+
+                            var circle = new naver.maps.Circle({
+                                map: map,
+                                center: new naver.maps.LatLng(XY.lat, XY.lng),
+                                radius: 50,
+                                fillColor: 'red',
+                                fillOpacity: 0.2
+                            });
+                            
+///////////////////////////////   수정 1         ////////////////////////////////////////
+                            
+                            data.items.item.forEach(function(it, index){
+                                let dutyName = it.dutyName;
+                                let dutyAddr = it.dutyAddr;
+                                let dutyTel1 = it.dutyTel1;
+
+                                let dutyTime = "";
+                                if(it.dutyTime1s && it.dutyTime1c) {
+                                    dutyTime += "월요일: " + it.dutyTime1s + " ~ " + it.dutyTime1c + "<br>";
+                                }
+
+                                if(it.dutyTime2s && it.dutyTime2c) {
+                                    dutyTime += "화요일: " + it.dutyTime2s + " ~ " + it.dutyTime2c + "<br>";
+                                }
+
+                                if(it.dutyTime3s && it.dutyTime3c) {
+                                    dutyTime += "수요일: " + it.dutyTime3s + " ~ " + it.dutyTime3c + "<br>";
+                                }
+
+                                if(it.dutyTime4s && it.dutyTime4c) {
+                                    dutyTime += "목요일: " + it.dutyTime4s + " ~ " + it.dutyTime4c + "<br>";
+                                }
+
+                                if(it.dutyTime5s && it.dutyTime5c) {
+                                    dutyTime += "금요일: " + it.dutyTime5s + " ~ " + it.dutyTime5c + "<br>";
+                                }
+
+                                if(it.dutyTime6s && it.dutyTime6c) {
+                                    dutyTime += "토요일: " + it.dutyTime6s + " ~ " + it.dutyTime6c + "<br>";
+                                }
+
+                                if(it.dutyTime7s && it.dutyTime7c) {
+                                    dutyTime += "일요일: " + it.dutyTime7s + " ~ " + it.dutyTime7c + "<br>";
+                                }
+
+                                if(it.dutyTime8s && it.dutyTime8c) {
+                                    dutyTime += "공휴일"; + it.dutyTime8s + " ~ " + it.dutyTime8c + "<br>";
+                                }
+
+
+                                let pharmacy_location = new naver.maps.LatLng(it.wgs84Lat, it.wgs84Lon)
+
+                                    let marker = new naver.maps.Marker({
+                                        map: map,
+                                        position: pharmacy_location
+                                    });
+                                
+                                    var contentString = [
+                                            '<div class="iw_inner">',
+                                            '   <h3>'+dutyName+'</h3>',
+                                            '   <p>'+dutyAddr+'<br />', 
+                                            '       '+dutyTel1+'<br />',
+                                            '       '+dutyTime,
+                                            '   </p>',
+                                            '</div>'
+                                        ].join('');
+                                    
+                                    var infowindow = new naver.maps.InfoWindow({
+                                        content: contentString,
+                                        maxWidth: 440,
+                                        backgroundColor: "#eee",
+                                        borderColor: "#2db400",
+                                        borderWidth: 5,
+                                        anchorSize: new naver.maps.Size(30, 30),
+                                        anchorSkew: true,
+                                        anchorColor: "#eee",
+                                        pixelOffset: new naver.maps.Point(20, -20)
+                                    });
+                                    
+                                    naver.maps.Event.addListener(marker, "click", function(e) {
+                                        if (infowindow.getMap()) {
+                                            infowindow.close();
+                                        } else {
+                                            infowindow.open(map, marker);
+                                        }
+                                    });
+
+
+
+
+
+
+
+
+
+
+
+
+                                    
+                                    });
+    
+                        },
+                        error: function(request, status, error) {
+                            
+                        }
+                    });
+
+
+                });
+
+
+            });
+
+            // geolocation은 gps와 관련된 객체, 이 객체가 존재하면 getLocation 실행함
+            // getCurrentPosition 사용시 현재 위치를 알 수 있다, position 이라는 객체를 통해 현 위치 파악
+            async function getLocation() {
+                let XY = new Object();
+                if(navigator.geolocation) {
+
+                    
+                    let promise = new Promise((resolve, rejected) => {
+                        navigator.geolocation.watchPosition((position) => {
+                            resolve(position);
+                        });
+                    });
+
+                    let position = await promise;
+
+                    //위도 position.coords.latitude 
+                    //경도 position.coords.longitude 
+                    XY.lat = position.coords.latitude
+                    XY.lng = position.coords.longitude
+  
+                }
+                return XY;     
+            }      
+        </script>    
+</html>
+
+
+
+<!--   http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire?serviceKey=mL6hpE93V2cGEHnZNYbp2kbpZIm2IFyc9rhdh2wIaUseyjghN%2FlJSV7tSchmbL47mZsX8gNcLVtGpsTxQkstdA%3D%3D&Q0=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C&Q1=%EA%B0%95%EB%82%A8%EA%B5%AC&QT=1&QN=%EC%82%BC%EC%84%B1%EC%95%BD%EA%B5%AD&ORD=NAME&pageNo=1&numOfRows=10         -->
