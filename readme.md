@@ -23,8 +23,10 @@ npm install axios
 
 이제 초기작업은 끝났고 나머지는 제 블로그를 참고해주세여 ㅎ
 <br>
-완성본<br>
+# 완성본<br>
 <img width="500" alt="1" src="https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/feb705df-6646-4199-8f00-aeb6d8ce5dc2">
+<br>
+
 ![2](https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/6c90da2e-ad72-4d3f-8594-af36de5a7825)
 
 # 링크로 이동하려면 사진을 클릭
