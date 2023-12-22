@@ -23,23 +23,6 @@ npm install axios
 
 이제 초기작업은 끝났고 나머지는 제 블로그를 참고해주세여 ㅎ
 <br>
-# 완성본 (사진 2개 첨부)<br>
-<img width="500" alt="1" src="https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/feb705df-6646-4199-8f00-aeb6d8ce5dc2">
-<br>
-<br>
-<br>
-<img width="500" alt="1" src =https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/6c90da2e-ad72-4d3f-8594-af36de5a7825>
-<br>
-
-
-# 링크로 이동하려면 사진을 클릭
-
-[![어서오셔 ㅎ](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk-zPB4TCuWRNJVIF0aWgniDPNJgUTdXmILg&usqp=CAU)](https://joonhwan2.github.io/)
-
-
-<br>
-<br>
-<br>
 <br>
 
 완성본은 이렇습니다\
@@ -48,3 +31,20 @@ https://pharmacy1234.herokuapp.com/
 <br>
 
 혹시 쿠키런 설탕노움 아이콘이 안보인다면 강력한 새로고침을 해보거나 조금 기다려보시면 나옵니다ㅎ
+
+# 완성본 (사진 2개 첨부)<br>
+<img width="500" alt="1" src="https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/feb705df-6646-4199-8f00-aeb6d8ce5dc2">
+<br>
+<br>
+<br>
+<img width="500" alt="1" src =https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/6c90da2e-ad72-4d3f-8594-af36de5a7825>
+<br>
+<br>
+<br>
+<br>
+
+# 링크로 이동하려면 사진을 클릭
+
+[![어서오셔 ㅎ](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk-zPB4TCuWRNJVIF0aWgniDPNJgUTdXmILg&usqp=CAU)](https://joonhwan2.github.io/)
+
+
