@@ -33,6 +33,7 @@ npm install axios
 <br>
 <br>
 <img width="500" alt="1" src="https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/feb705df-6646-4199-8f00-aeb6d8ce5dc2">
+<br>
 ![2](https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/21c696d4-77ba-496c-b96a-2925696f2bbf)
 
 완성본은 이렇습니다\
