@@ -33,7 +33,7 @@ https://pharmacy1234.herokuapp.com/
 혹시 쿠키런 설탕노움 아이콘이 안보인다면 강력한 새로고침을 해보거나 조금 기다려보시면 나옵니다ㅎ
 
 # 완성본
-# 내 위치근처 약국찾기(사진 2개 첨부)<br>
+## 내 현위치 주변 약국찾기(사진 2개 첨부)<br>
 <img width="500" alt="1" src="https://github.com/joonk2/nodejs-pharmacy-searching-naver-api-master/assets/153247950/feb705df-6646-4199-8f00-aeb6d8ce5dc2">
 <br>
 <br>
