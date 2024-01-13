@@ -46,6 +46,6 @@ https://pharmacy1234.herokuapp.com/
 
 # 디스코드 링크로 이동하려면 사진을 클릭
 
-[![어서오셔 ㅎ](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk-zPB4TCuWRNJVIF0aWgniDPNJgUTdXmILg&usqp=CAU)](https://joonhwan2.github.io/)
+[![어서오셔 ㅎ](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk-zPB4TCuWRNJVIF0aWgniDPNJgUTdXmILg&usqp=CAU)](https://joonk2.github.io/)
 
 
